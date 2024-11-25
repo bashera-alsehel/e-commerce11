@@ -42,6 +42,9 @@ Route::get('/contact-us',[HomeController::class, 'contact'])->name('home.contact
 Route::post('/contact/store',[HomeController::class, 'contact_store'])->name('home.contact.store');
 
 
+Route::get('/about',[HomeController::class, 'about'])->name('home.about');
+
+
 Route::get('/search',[HomeController::class, 'search'])->name('home.search');
 
 Route::middleware(['auth'])->group(function(){
@@ -104,6 +107,9 @@ Route::middleware(['auth', AuthAdmin::class])->group(function(){
 
 
     Route::get('/admin/search',[AdminController::class, 'search'])->name('admin.search');
+
+    Route::get('/admin/users',[AdminController::class, 'users'])->name('admin.users');
+    Route::delete('/admin/user/{id}/delete',[AdminController::class, 'delete_user'])->name('admin.user.delete');
 
 
 

@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Contact;
 use App\Models\Transaction;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -690,6 +691,20 @@ class AdminController extends Controller
         $results = Product::where('name','LIKE',"%{$query}%")->get()->take(8);
 
         return response()->json($results);
+    }
+
+    public function users()
+    {
+        $users = User::orderBy('created_at','DESC')->paginate(10);
+        return view('admin.user',compact('users'));
+    }
+
+    public function delete_user($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()->route('admin.user')->with("status","User deleted successfully");
     }
 
 }
